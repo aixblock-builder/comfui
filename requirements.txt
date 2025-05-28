@@ -1,4 +1,4 @@
-transformers
+transformers==4.46.2
 accelerate>=0.31.0
 bitsandbytes>=0.41.3
 prometheus-client
@@ -17,7 +17,6 @@ colorama
 lxml
 appdirs
 gitpython
-centrifuge-python
 opencv-python>=4.1.1
 grafana-api
 diffusers
