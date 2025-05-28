@@ -574,7 +574,7 @@ class MyModel(AIxBlockMLBase):
 
 
         def run_comfyui():
-            subprocess.run(["python", "ComfyUI/main.py"], check=True)
+            subprocess.run(["venv/bin/python", "ComfyUI/main.py"], check=True)
 
         threading.Thread(target=run_comfyui, daemon=True, args=()).start()
         share_url = iframe_thread(port)

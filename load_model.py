@@ -19,7 +19,10 @@ def install_cloudflared():
 
 def install_comfyui():
     original_cwd = Path.cwd()
+    pip_path = os.path.join(os.getcwd(), "venv/bin/pip")
+    python_path = os.path.join(os.getcwd(), "venv/bin/python")  
     WORKSPACE = Path('ComfyUI')
+    logger.info(WORKSPACE)
     REPO_URL = 'https://github.com/comfyanonymous/ComfyUI'
 
     # Clone repo nếu chưa tồn tại
@@ -33,7 +36,7 @@ def install_comfyui():
     # Cài dependencies chính
     logger.info("-= Install dependencies =-")
     subprocess.run([
-        "pip", "install", "xformers", "-r", "requirements.txt",
+        pip_path, "install", "-r", "requirements.txt",
         "--extra-index-url", "https://download.pytorch.org/whl/cu121"
     ])
 
@@ -79,19 +82,17 @@ def install_comfyui():
             if has_requirements:
                 req_path = CUSTOM_NODES_DIR / repo_name / "requirements.txt"
                 if req_path.exists():
-                    subprocess.run(["pip", "install", "-r", str(req_path)])
+                    subprocess.run([pip_path, "install", "-r", str(req_path)])
 
     # Chạy script cài đặt riêng cho Impact-Pack
     impact_pack_script = CUSTOM_NODES_DIR / "ComfyUI-Impact-Pack" / "install.py"
     if impact_pack_script.exists():
-        subprocess.run(["python", str(impact_pack_script)])
+        subprocess.run([python_path, str(impact_pack_script)])
 
     # Cài đặt thêm ultralytics
-    subprocess.run(["pip", "install", "ultralytics"])
+    subprocess.run([pip_path, "install", "ultralytics"])
 
     install_cloudflared()
 
     os.chdir(original_cwd)
     logger.info(f"-= Done. Returned to original directory: {original_cwd} =-")
-
-
