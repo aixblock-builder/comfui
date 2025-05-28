@@ -1,6 +1,7 @@
 import subprocess
 from pathlib import Path
 from loguru import logger
+import os
 
 def install_cloudflared():
     url = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb"
@@ -27,7 +28,6 @@ def install_comfyui():
         subprocess.run(["git", "clone", REPO_URL])
 
     # Chuyển thư mục làm việc
-    import os
     os.chdir(WORKSPACE)
 
     # Cài dependencies chính
@@ -39,6 +39,7 @@ def install_comfyui():
 
     # Cài đặt aria2
     subprocess.run(["apt", "-y", "install", "-qq", "aria2"])
+    os.chdir(original_cwd)
 
     # Cài đặt các custom nodes
     CUSTOM_NODES_DIR = WORKSPACE / "custom_nodes"
