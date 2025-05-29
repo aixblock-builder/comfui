@@ -25,8 +25,8 @@ def install_cloudflared():
     logger.info("✅ cloudflared has been installed.")
 
 def install_comfyui():
-    pip_path = os.path.join(os.getcwd(), "venv/bin/pip")
-    python_path = os.path.join(os.getcwd(), "venv/bin/python")  
+    pip_path = os.path.join(current_dir, "venv/bin/pip")
+    python_path = os.path.join(current_dir, "venv/bin/python")  
     WORKSPACE = os.path.join(current_dir, "ComfyUI")
     logger.info(WORKSPACE)
     REPO_URL = 'https://github.com/comfyanonymous/ComfyUI'
