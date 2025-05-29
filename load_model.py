@@ -5,8 +5,8 @@ import os
 
 current_file_path = Path(__file__).resolve()
 current_dir = current_file_path.parent
-print(f"Đường dẫn file đang chạy: {current_file_path}")
-print(f"Thư mục chứa file: {current_dir}")
+logger.info(f"Đường dẫn file đang chạy: {current_file_path}")
+logger.info(f"Thư mục chứa file: {current_dir}")
 original_cwd = Path.cwd()
 os.chdir(current_dir)
 
