@@ -3,6 +3,13 @@ from pathlib import Path
 from loguru import logger
 import os
 
+current_file_path = Path(__file__).resolve()
+current_dir = current_file_path.parent
+print(f"Đường dẫn file đang chạy: {current_file_path}")
+print(f"Thư mục chứa file: {current_dir}")
+original_cwd = Path.cwd()
+os.chdir(current_dir)
+
 def install_cloudflared():
     url = "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb"
     filename = "cloudflared-linux-amd64.deb"
@@ -18,7 +25,6 @@ def install_cloudflared():
     logger.info("✅ cloudflared has been installed.")
 
 def install_comfyui():
-    original_cwd = Path.cwd()
     pip_path = os.path.join(os.getcwd(), "venv/bin/pip")
     python_path = os.path.join(os.getcwd(), "venv/bin/python")  
     WORKSPACE = Path('ComfyUI')
@@ -94,5 +100,6 @@ def install_comfyui():
 
     install_cloudflared()
 
-    os.chdir(original_cwd)
-    logger.info(f"-= Done. Returned to original directory: {original_cwd} =-")
+install_comfyui()
+os.chdir(original_cwd)
+logger.info(f"-= Done. Returned to original directory: {original_cwd} =-")

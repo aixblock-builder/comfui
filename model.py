@@ -34,8 +34,8 @@ import yaml
 import urllib.request
 import socket
 
-from load_model import install_comfyui
-install_comfyui()
+# from load_model import install_comfyui
+# install_comfyui()
 
 hf_token = os.getenv("HF_TOKEN", "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")
 HfFolder.save_token(hf_token)
@@ -567,7 +567,8 @@ class MyModel(AIxBlockMLBase):
                 l = line.decode()
                 if "trycloudflare.com " in l:
                     print("This is the URL to access ComfyUI:", l[l.find("http"):], end='')
-                    share_url = l[l.find("http"):]
+                    share_url = l[l.find("http"):].strip()
+                    share_url = share_url.split()[0].rstrip('|')
                     return share_url
                     
             return ""
@@ -579,7 +580,7 @@ class MyModel(AIxBlockMLBase):
         threading.Thread(target=run_comfyui, daemon=True, args=()).start()
         share_url = iframe_thread(port)
         local_url = f"http://127.0.0.1:{port}"
-        
+        print(share_url)
         return {"share_url": share_url, 'local_url': local_url}
     
     @mcp.tool()
